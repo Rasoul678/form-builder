@@ -1,4 +1,4 @@
-import { Element, FormJSON } from "../types";
+import { FormElement, FormJSON } from "../types";
 
 export class SurveyModel {
   public data: FormJSON | null = null;
@@ -8,7 +8,7 @@ export class SurveyModel {
   >();
   public onComplete: Event<SurveyModel, any> = new Event<SurveyModel, any>();
   public isCompleted: boolean = false;
-  public elements: Element[] = [];
+  public elements: FormElement[] = [];
 
   constructor(json: FormJSON) {
     this.fromJSON(json);

@@ -15,6 +15,7 @@ const SurveyCreator: React.FC<IProps> = () => {
   survey.onValueChanged.add((_sender, args) => {
     console.log(args);
   });
+  // TODO: add dnd and draggable elements
 
   return (
     <div>

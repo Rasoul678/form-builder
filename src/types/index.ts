@@ -2,7 +2,7 @@ export type FormJSON = {
   description: string;
   completedMessage: string;
   title: string;
-  elements: Element[];
+  elements: FormElement[];
   showQuestionNumbers: string;
   questionTitleLocation: string;
   questionDescriptionLocation: string;
@@ -10,7 +10,7 @@ export type FormJSON = {
   completeText: string;
 };
 
-export type Element = {
+export type FormElement = {
   type: string;
   name: string;
   title: string;
@@ -18,6 +18,7 @@ export type Element = {
   isRequired: boolean;
   minWidth?: string;
   maxWidth?: string;
-  choices?: { value: string; text: string }[];
-  value: string;
+  options?: { value: string; text: string }[];
+  value: string | string[];
+  defaultValue: string | string[];
 };
