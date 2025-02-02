@@ -48,9 +48,16 @@ export class SurveyModel {
   public complete(): void {
     this.isCompleted = true;
     this.onComplete.fire(this, {});
+    ``;
   }
 }
 
+/**
+ * A generic event class that allows for adding, removing, and firing event handlers.
+ *
+ * @template T The type of the subject or sender of the event.
+ * @template U The type of the event arguments.
+ */
 class Event<T, U> {
   private handlers: Array<(sender: T, args: U) => void> = [];
 

@@ -60,9 +60,9 @@ const CheckboxElement: React.FC<IProps> = ({
                           handleValueChange(element.name, values);
 
                           return checked
-                            ? field.onChange([...field.value, option.value])
+                            ? field.onChange([...element.value, option.value])
                             : field.onChange(
-                                field.value?.filter(
+                                (element.value as string[])?.filter(
                                   (value: string) => value !== option.value
                                 )
                               );

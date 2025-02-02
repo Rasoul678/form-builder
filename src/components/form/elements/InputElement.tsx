@@ -31,9 +31,12 @@ const InputElement: React.FC<IProps> = ({
           <FormLabel className="my-1">{element.title}</FormLabel>
           <FormControl>
             <Input
-              placeholder="e.g. John Doe"
+              placeholder="e.g: John Doe"
               {...field}
-              onChange={(e) => handleValueChange(element.name, e.target.value)}
+              onChange={(e) => {
+                field.onChange(e.target.value);
+                handleValueChange(element.name, e.target.value);
+              }}
             />
           </FormControl>
           <FormDescription>{element.description}</FormDescription>

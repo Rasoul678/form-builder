@@ -3,10 +3,22 @@ import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
 
+/**
+ * Merges CSS class names using the `clsx` and `tailwind-merge` libraries.
+ *
+ * @param inputs - An array of CSS class names to be merged.
+ * @returns The merged CSS class names.
+ */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/**
+ * Generates a Zod schema object based on an array of form elements.
+ *
+ * @param elements - An array of `FormElement` objects representing the form fields.
+ * @returns A Zod schema object that can be used to validate the form data.
+ */
 export function generateFormSchema(elements: FormElement[]) {
   const schemaObject = elements.reduce((acc, element) => {
     let schema: any;

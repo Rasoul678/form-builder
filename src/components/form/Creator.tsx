@@ -1,8 +1,8 @@
 import { useSurveyContext } from "@/hooks/useSurveyContext";
 import React from "react";
 import { SurveyModel as Model } from "../../services/SurveyModel";
-import Toolbox from "../Toolbox";
 import SurveyRenderer from "./Renderer";
+import Toolbox from "./Toolbox";
 
 type IProps = {};
 

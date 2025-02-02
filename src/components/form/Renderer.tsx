@@ -49,6 +49,9 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
         { text: "Male", value: "male" },
         { text: "Female", value: "female" },
       ];
+    }
+
+    if (type === FormTypes.CHECKBOX) {
       newElement.value = [];
       newElement.defaultValue = [];
     }
