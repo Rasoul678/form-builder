@@ -3,6 +3,7 @@ export enum FormTypes {
   CHECKBOX = "checkbox",
   RADIO = "radio",
   SELECT = "select",
+  DATEPICKER = "datepicker",
 }
 
 export type OptionType = {
@@ -38,6 +39,7 @@ export type SurveyContextType = {
   isHover: boolean;
   setIsHover: (isHover: boolean) => void;
   addElement: (newElement: FormElement) => void;
+  removeElement: (newElement: FormElement) => void;
 };
 
 export type ModalFormData = {

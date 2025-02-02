@@ -1,6 +1,7 @@
 import { useSurveyContext } from "@/hooks/useSurveyContext";
 import { FormTypes } from "@/types";
 import {
+  CalendarDaysIcon,
   CheckCircle2Icon,
   CheckSquare2,
   FormInputIcon,
@@ -13,6 +14,11 @@ const fieldTypes = [
   { type: FormTypes.SELECT, label: "Dropdown", icon: <TextSelectionIcon /> },
   { type: FormTypes.CHECKBOX, label: "Checkbox", icon: <CheckSquare2 /> },
   { type: FormTypes.RADIO, label: "Radio Button", icon: <CheckCircle2Icon /> },
+  {
+    type: FormTypes.DATEPICKER,
+    label: "Datepicker",
+    icon: <CalendarDaysIcon />,
+  },
 ];
 
 const Toolbox = () => {

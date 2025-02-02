@@ -29,9 +29,24 @@ const SurveyProvider: React.FC<{ children: React.ReactNode }> = ({
     }));
   };
 
+  const removeElement = (newElement: FormElement) => {
+    setFormConfig((prevConfig) => ({
+      ...prevConfig,
+      elements: prevConfig.elements.filter(
+        (prevElement) => prevElement.name !== newElement.name
+      ),
+    }));
+  };
+
   return (
     <SurveyContext.Provider
-      value={{ json: formConfig, isHover, setIsHover, addElement }}
+      value={{
+        json: formConfig,
+        isHover,
+        setIsHover,
+        addElement,
+        removeElement,
+      }}
     >
       {children}
     </SurveyContext.Provider>

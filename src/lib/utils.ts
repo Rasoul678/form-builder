@@ -1,5 +1,6 @@
 import { FormElement } from "@/types";
 import { clsx, type ClassValue } from "clsx";
+import React, { ReactElement } from "react";
 import { twMerge } from "tailwind-merge";
 import { z } from "zod";
 
@@ -52,3 +53,17 @@ export function generateFormSchema(elements: FormElement[]) {
 
   return z.object(schemaObject);
 }
+
+/**
+ * Checks if the provided React element is a Fragment.
+ *
+ * @param element - The React element to check.
+ * @returns `true` if the element is a Fragment, `false` otherwise.
+ */
+export const isFragment = (element: ReactElement): boolean => {
+  return (
+    React.isValidElement(element) &&
+    (element.type === React.Fragment ||
+      element.type.toString() === "Symbol(react.fragment)")
+  );
+};

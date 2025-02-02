@@ -1,49 +1,43 @@
 import {
   FormControl,
   FormDescription,
-  FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { FormElement } from "@/types";
 import React from "react";
-import { UseFormReturn } from "react-hook-form";
+import { ControllerRenderProps } from "react-hook-form";
+import { PrimeContext } from "./PrimeElement";
 
 type IProps = {
-  element: FormElement;
-  form: UseFormReturn<any>;
-  handleValueChange: (name: string, value: any) => void;
+  field: ControllerRenderProps<any, string>;
 };
 
-const InputElement: React.FC<IProps> = ({
-  element,
-  form,
-  handleValueChange,
-}) => {
+const InputElement: React.FC<IProps> = ({ field }) => {
+  const ctx = React.useContext(PrimeContext);
+
+  if (!ctx) {
+    throw new Error("InputElement must be used within PrimeElement");
+  }
+
+  const { element, handleValueChange } = ctx;
+
   return (
-    <FormField
-      control={form.control}
-      name={element.name}
-      render={({ field }) => (
-        <FormItem>
-          <FormLabel className="my-1">{element.title}</FormLabel>
-          <FormControl>
-            <Input
-              placeholder="e.g: John Doe"
-              {...field}
-              onChange={(e) => {
-                field.onChange(e.target.value);
-                handleValueChange(element.name, e.target.value);
-              }}
-            />
-          </FormControl>
-          <FormDescription>{element.description}</FormDescription>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
+    <FormItem>
+      <FormLabel className="my-1">{element.title}</FormLabel>
+      <FormControl>
+        <Input
+          placeholder="e.g: John Doe"
+          onChange={(e) => {
+            field.onChange(e.target.value);
+            handleValueChange(element.name, e.target.value);
+          }}
+        />
+      </FormControl>
+      <FormDescription>{element.description}</FormDescription>
+      <FormMessage />
+    </FormItem>
   );
 };
 

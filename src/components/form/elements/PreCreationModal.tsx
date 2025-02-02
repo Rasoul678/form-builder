@@ -36,8 +36,13 @@ const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
     };
   }, []);
 
+  const isMultiOption =
+    type === FormTypes.CHECKBOX ||
+    type === FormTypes.RADIO ||
+    type === FormTypes.SELECT;
+
   const handleSubmit = () => {
-    if (options.length < 2 && type !== FormTypes.TEXT) {
+    if (options.length < 2 && isMultiOption) {
       alert("Please add at least 2 options");
       return;
     }
@@ -93,9 +98,7 @@ const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
               className="col-span-3"
             />
           </div>
-          {(type === FormTypes.CHECKBOX ||
-            type === FormTypes.RADIO ||
-            type === FormTypes.SELECT) && (
+          {isMultiOption && (
             <>
               <Label htmlFor="options" className="text-left">
                 Options:

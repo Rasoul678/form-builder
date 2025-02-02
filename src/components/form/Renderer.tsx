@@ -1,19 +1,13 @@
 import { useSurveyContext } from "@/hooks/useSurveyContext";
 import { useSurveyForm } from "@/hooks/useSurveyForm";
 import { FormElement, FormTypes, ModalFormData } from "@/types";
-import React, { Suspense } from "react";
+import React from "react";
 import { SurveyModel } from "../../services/SurveyModel";
 import { Button } from "../ui/button";
 import { Form } from "../ui/form";
 import Placeholder from "./elements/Placeholder";
 import PreCreationModal from "./elements/PreCreationModal";
-
-const CheckboxElement = React.lazy(() => import("./elements/CheckboxElement"));
-const InputElement = React.lazy(() => import("./elements/InputElement"));
-const RadioGroupElement = React.lazy(
-  () => import("./elements/RadioGroupElement")
-);
-const SelectElement = React.lazy(() => import("./elements/SelectElement"));
+import PrimeElement from "./elements/PrimeElement";
 
 // TODO: Add inline fields editing
 
@@ -38,6 +32,11 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
   const createElement = (data: ModalFormData) => {
     if (!type) return;
 
+    const isMultiOption =
+      type === FormTypes.CHECKBOX ||
+      type === FormTypes.RADIO ||
+      type === FormTypes.SELECT;
+
     const newElement: FormElement = {
       type,
       name: "fieldName" + Date.now(),
@@ -48,11 +47,7 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
       defaultValue: "",
     };
 
-    if (
-      type === FormTypes.CHECKBOX ||
-      type === FormTypes.RADIO ||
-      type === FormTypes.SELECT
-    ) {
+    if (isMultiOption) {
       newElement.options = data.options;
     }
 
@@ -100,39 +95,13 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
             </div>
           )}
           {model.elements.map((element) => (
-            <Suspense key={element.name} fallback={<Placeholder />}>
-              <div className="my-6 p-4 rounded-lg border border-gray-700">
-                {element.type === FormTypes.TEXT && (
-                  <InputElement
-                    element={element}
-                    form={form}
-                    handleValueChange={handleValueChange}
-                  />
-                )}
-                {element.type === FormTypes.RADIO && (
-                  <RadioGroupElement
-                    element={element}
-                    form={form}
-                    handleValueChange={handleValueChange}
-                  />
-                )}
-                {element.type === FormTypes.CHECKBOX && (
-                  <CheckboxElement
-                    model={model}
-                    element={element}
-                    form={form}
-                    handleValueChange={handleValueChange}
-                  />
-                )}
-                {element.type === FormTypes.SELECT && (
-                  <SelectElement
-                    element={element}
-                    form={form}
-                    handleValueChange={handleValueChange}
-                  />
-                )}
-              </div>
-            </Suspense>
+            <PrimeElement
+              key={element.name}
+              element={element}
+              form={form}
+              model={model}
+              handleValueChange={handleValueChange}
+            />
           ))}
           {context.isHover && <Placeholder />}
           {model.elements.length > 0 && (
