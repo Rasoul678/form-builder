@@ -1,5 +1,5 @@
+import { useSurveyContext } from "@/hooks/useSurveyContext";
 import { useSurveyForm } from "@/hooks/useSurveyForm";
-import { SurveyContext } from "@/services/SurveyProvider";
 import { FormElement, FormTypes } from "@/types";
 import React from "react";
 import { SurveyModel } from "../../services/SurveyModel";
@@ -16,12 +16,7 @@ type IProps = {
 };
 
 const FormRenderer: React.FC<IProps> = ({ model }) => {
-  const context = React.useContext(SurveyContext);
-
-  if (!context) {
-    throw new Error("SurveyRenderer must be used within a SurveyProvider");
-  }
-
+  const context = useSurveyContext();
   const form = useSurveyForm(model);
 
   const handleValueChange = (questionName: string, value: any) => {
@@ -76,6 +71,11 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <h1 className="text-center">{model.title}</h1>
+          {!context.isHover && model.elements.length == 0 && (
+            <div className="h-[20rem] flex justify-center items-center">
+              Drag & Drop here to create an awesome form!
+            </div>
+          )}
           {model.elements.map((element) => (
             <div
               key={element.name}
@@ -112,11 +112,7 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
               )}
             </div>
           ))}
-          {context.isHover && (
-            <div className="my-6 p-4 rounded-lg border border-gray-700">
-              <Placeholder />
-            </div>
-          )}
+          {context.isHover && <Placeholder />}
           {model.elements.length > 0 && (
             <Button type="submit">{model.data?.completeText}</Button>
           )}
