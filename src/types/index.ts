@@ -1,3 +1,10 @@
+export enum FormTypes {
+  TEXT = "text",
+  CHECKBOX = "checkbox",
+  RADIO = "radio",
+  SELECT = "select",
+}
+
 export type FormJSON = {
   description: string;
   completedMessage: string;
@@ -11,14 +18,19 @@ export type FormJSON = {
 };
 
 export type FormElement = {
-  type: string;
+  type: FormTypes;
   name: string;
   title: string;
   description: string;
   isRequired: boolean;
-  minWidth?: string;
-  maxWidth?: string;
   options?: { value: string; text: string }[];
   value: string | string[];
   defaultValue: string | string[];
+};
+
+export type SurveyContextType = {
+  json: FormJSON;
+  isHover: boolean;
+  setIsHover: (isHover: boolean) => void;
+  addElement: (newElement: FormElement) => void;
 };
