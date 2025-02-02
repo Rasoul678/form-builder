@@ -34,3 +34,8 @@ export type SurveyContextType = {
   setIsHover: (isHover: boolean) => void;
   addElement: (newElement: FormElement) => void;
 };
+
+export type modalFormData = {
+  title: string;
+  description: string;
+};

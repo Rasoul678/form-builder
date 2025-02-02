@@ -1,6 +1,6 @@
 import { useSurveyContext } from "@/hooks/useSurveyContext";
 import { useSurveyForm } from "@/hooks/useSurveyForm";
-import { FormElement, FormTypes } from "@/types";
+import { FormElement, FormTypes, modalFormData } from "@/types";
 import React from "react";
 import { SurveyModel } from "../../services/SurveyModel";
 import { Button } from "../ui/button";
@@ -8,8 +8,11 @@ import { Form } from "../ui/form";
 import CheckboxElement from "./elements/CheckboxElement";
 import InputElement from "./elements/InputElement";
 import Placeholder from "./elements/Placeholder";
+import PreCreationModal from "./elements/PreCreationModal";
 import RadioGroupElement from "./elements/RadioGroupElement";
 import SelectElement from "./elements/SelectElement";
+
+// TODO: Add inline fields editing
 
 type IProps = {
   model: SurveyModel;
@@ -18,6 +21,8 @@ type IProps = {
 const FormRenderer: React.FC<IProps> = ({ model }) => {
   const context = useSurveyContext();
   const form = useSurveyForm(model);
+  const [isOpen, setIsopen] = React.useState(false);
+  const [type, setType] = React.useState<FormTypes | null>(null);
 
   const handleValueChange = (questionName: string, value: any) => {
     model.setValue(questionName, value);
@@ -27,14 +32,14 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
     model.complete();
   };
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const type = e.dataTransfer.getData("elementType") as FormTypes;
+  const createElement = (data: modalFormData) => {
+    if (!type) return;
+
     const newElement: FormElement = {
       type,
       name: "fieldName" + Date.now(),
-      title: "Field Name",
-      description: "Please edit your field name",
+      title: data.title || "Field Name",
+      description: data.description || "Field Description",
       isRequired: true,
       value: "",
       defaultValue: "",
@@ -57,7 +62,15 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
     }
 
     context.addElement(newElement);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const type = e.dataTransfer.getData("elementType") as FormTypes;
     context.setIsHover(false);
+
+    setType(type);
+    setIsopen(true);
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -71,6 +84,12 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
+      {isOpen && (
+        <PreCreationModal
+          onSubmit={(formData) => createElement(formData)}
+          onClose={() => setIsopen(false)}
+        />
+      )}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <h1 className="text-center">{model.title}</h1>
