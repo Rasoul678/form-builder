@@ -54,7 +54,11 @@ const SelectElement: React.FC<IProps> = ({
               <SelectContent>
                 {element.options?.map((option) => {
                   return (
-                    <SelectItem key={option.value} value={option.value}>
+                    <SelectItem
+                      key={option.value}
+                      value={option.value}
+                      className="capitalize"
+                    >
                       {option.text}
                     </SelectItem>
                   );

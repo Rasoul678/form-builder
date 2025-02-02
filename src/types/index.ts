@@ -5,6 +5,11 @@ export enum FormTypes {
   SELECT = "select",
 }
 
+export type OptionType = {
+  value: string;
+  text: string;
+};
+
 export type FormJSON = {
   description: string;
   completedMessage: string;
@@ -23,7 +28,7 @@ export type FormElement = {
   title: string;
   description: string;
   isRequired: boolean;
-  options?: { value: string; text: string }[];
+  options?: OptionType[];
   value: string | string[];
   defaultValue: string | string[];
 };
@@ -35,7 +40,8 @@ export type SurveyContextType = {
   addElement: (newElement: FormElement) => void;
 };
 
-export type modalFormData = {
+export type ModalFormData = {
   title: string;
   description: string;
+  options?: OptionType[];
 };

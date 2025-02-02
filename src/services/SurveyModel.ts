@@ -48,7 +48,6 @@ export class SurveyModel {
   public complete(): void {
     this.isCompleted = true;
     this.onComplete.fire(this, {});
-    ``;
   }
 }
 

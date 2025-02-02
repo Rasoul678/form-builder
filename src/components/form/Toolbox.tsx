@@ -1,12 +1,18 @@
 import { useSurveyContext } from "@/hooks/useSurveyContext";
 import { FormTypes } from "@/types";
+import {
+  CheckCircle2Icon,
+  CheckSquare2,
+  FormInputIcon,
+  TextSelectionIcon,
+} from "lucide-react";
 import React from "react";
 
 const fieldTypes = [
-  { type: FormTypes.TEXT, label: "Text Input" },
-  { type: FormTypes.SELECT, label: "Dropdown" },
-  { type: FormTypes.CHECKBOX, label: "Checkbox" },
-  { type: FormTypes.RADIO, label: "Radio Button" },
+  { type: FormTypes.TEXT, label: "Text Input", icon: <FormInputIcon /> },
+  { type: FormTypes.SELECT, label: "Dropdown", icon: <TextSelectionIcon /> },
+  { type: FormTypes.CHECKBOX, label: "Checkbox", icon: <CheckSquare2 /> },
+  { type: FormTypes.RADIO, label: "Radio Button", icon: <CheckCircle2Icon /> },
 ];
 
 const Toolbox = () => {
@@ -26,11 +32,12 @@ const Toolbox = () => {
         {fieldTypes.map((element, index) => (
           <div
             key={index}
-            className="px-2 py-1 border rounded-sm w-[8rem] flex justify-center items-center hover:cursor-grab hover:text-cyan-400"
+            className="px-2 py-1 border rounded-sm w-[10rem] flex justify-start items-center hover:cursor-grab hover:text-cyan-400 gap-2"
             draggable
             onDragStart={handleDragStart(element.type)}
             onDragEnd={() => context.setIsHover(false)}
           >
+            {element.icon}
             {element.label}
           </div>
         ))}

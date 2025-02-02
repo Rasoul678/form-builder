@@ -1,6 +1,6 @@
 import { useSurveyContext } from "@/hooks/useSurveyContext";
 import { useSurveyForm } from "@/hooks/useSurveyForm";
-import { FormElement, FormTypes, modalFormData } from "@/types";
+import { FormElement, FormTypes, ModalFormData } from "@/types";
 import React, { Suspense } from "react";
 import { SurveyModel } from "../../services/SurveyModel";
 import { Button } from "../ui/button";
@@ -35,7 +35,7 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
     model.complete();
   };
 
-  const createElement = (data: modalFormData) => {
+  const createElement = (data: ModalFormData) => {
     if (!type) return;
 
     const newElement: FormElement = {
@@ -53,10 +53,7 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
       type === FormTypes.RADIO ||
       type === FormTypes.SELECT
     ) {
-      newElement.options = [
-        { text: "Male", value: "male" },
-        { text: "Female", value: "female" },
-      ];
+      newElement.options = data.options;
     }
 
     if (type === FormTypes.CHECKBOX) {
@@ -70,9 +67,9 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const type = e.dataTransfer.getData("elementType") as FormTypes;
-    context.setIsHover(false);
-
     setType(type);
+
+    context.setIsHover(false);
     setIsopen(true);
   };
 
@@ -91,6 +88,7 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
         <PreCreationModal
           onSubmit={(formData) => createElement(formData)}
           onClose={() => setIsopen(false)}
+          type={type}
         />
       )}
       <Form {...form}>

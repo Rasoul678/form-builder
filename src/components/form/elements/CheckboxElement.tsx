@@ -69,7 +69,7 @@ const CheckboxElement: React.FC<IProps> = ({
                         }}
                       />
                     </FormControl>
-                    <FormLabel className="text-sm font-normal">
+                    <FormLabel className="text-sm font-normal capitalize">
                       {option.text}
                     </FormLabel>
                   </FormItem>

@@ -48,7 +48,9 @@ const RadioGroupElement: React.FC<IProps> = ({
                   <FormControl>
                     <RadioGroupItem value={option.value} />
                   </FormControl>
-                  <FormLabel className="font-normal">{option.text}</FormLabel>
+                  <FormLabel className="font-normal capitalize">
+                    {option.text}
+                  </FormLabel>
                 </FormItem>
               ))}
             </RadioGroup>
