@@ -31,6 +31,7 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
 
   const createElement = (data: ModalFormData) => {
     if (!type) return;
+    const { description, isRequired, title, options } = data;
 
     const isMultiOption =
       type === FormTypes.CHECKBOX ||
@@ -39,16 +40,16 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
 
     const newElement: FormElement = {
       type,
-      name: "fieldName" + Date.now(),
-      title: data.title || "Field Name",
-      description: data.description || "Field Description",
-      isRequired: true,
+      name: type + "@" + Date.now(),
+      title: title || "Field Name",
+      description: description || "Field Description",
+      isRequired,
       value: "",
       defaultValue: "",
     };
 
     if (isMultiOption) {
-      newElement.options = data.options;
+      newElement.options = options;
     }
 
     if (type === FormTypes.CHECKBOX) {
@@ -94,9 +95,10 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
               Drag & Drop here to create an awesome form!
             </div>
           )}
-          {model.elements.map((element) => (
+          {model.elements.map((element, idx) => (
             <PrimeElement
               key={element.name}
+              index={idx + 1}
               element={element}
               form={form}
               model={model}

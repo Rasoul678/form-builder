@@ -13,7 +13,7 @@ const SurveyProvider: React.FC<{ children: React.ReactNode }> = ({
     completedMessage: "Thank you for your submission!",
     title: "Simple Form Builder",
     elements: [],
-    showQuestionNumbers: "off",
+    showQuestionNumbers: true,
     questionTitleLocation: "left",
     questionDescriptionLocation: "underInput",
     questionErrorLocation: "bottom",

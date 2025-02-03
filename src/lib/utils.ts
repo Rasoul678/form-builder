@@ -26,26 +26,47 @@ export function generateFormSchema(elements: FormElement[]) {
 
     switch (element.type) {
       case "text":
-        schema = z.string().min(2, {
-          message: "Input must be at least 2 characters.",
-        });
+        if (element.isRequired) {
+          schema = z
+            .string({
+              required_error: "Please enter a value.",
+            })
+            .min(2, {
+              message: "Input must be at least 2 characters.",
+            });
+        } else {
+          schema = z.string().optional();
+        }
+
         break;
       case "radio":
-        schema = z.string({
-          required_error: "Please select an item to display.",
-        });
+        if (element.isRequired) {
+          schema = z.string({
+            required_error: "Please select an item to display.",
+          });
+        } else {
+          schema = z.string().optional();
+        }
         break;
       case "checkbox":
-        schema = z
-          .array(z.string())
-          .refine((value) => value.some((item) => item), {
-            message: "You have to select at least one item.",
-          });
+        if (element.isRequired) {
+          schema = z
+            .array(z.string())
+            .refine((value) => value.some((item) => item), {
+              message: "You have to select at least one item.",
+            });
+        } else {
+          schema = z.array(z.string()).optional();
+        }
         break;
       case "select":
-        schema = z.string({
-          required_error: "Please select an item to display.",
-        });
+        if (element.isRequired) {
+          schema = z.string({
+            required_error: "Please select an item to display.",
+          });
+        } else {
+          schema = z.string().optional();
+        }
         break;
     }
     return { ...acc, [element.name]: schema };

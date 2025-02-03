@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -25,8 +26,9 @@ const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
   const optionRefInput = React.useRef<HTMLInputElement | null>(null);
   const [title, setTitle] = React.useState("");
-  const [desc, setDesc] = React.useState("");
-  const [options, setOptions] = React.useState<string[]>([]);
+  const [description, setDescription] = React.useState("");
+  const [isRequired, setIsRequired] = React.useState(false);
+  const [formOptions, setFormOptions] = React.useState<string[]>([]);
 
   React.useEffect(() => {
     triggerRef.current?.click();
@@ -42,24 +44,31 @@ const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
     type === FormTypes.SELECT;
 
   const handleSubmit = () => {
-    if (options.length < 2 && isMultiOption) {
+    if (formOptions.length < 2 && isMultiOption) {
       alert("Please add at least 2 options");
       return;
     }
 
-    const formOptions = options.map((option) => ({
+    const options = formOptions.map((option) => ({
       text: option,
       value: option,
     }));
 
-    onSubmit({ title, description: desc, options: formOptions });
+    const formData = {
+      title,
+      description,
+      options,
+      isRequired,
+    };
+
+    onSubmit(formData);
     onClose();
   };
 
   const addOption = () => {
     const value = optionRefInput.current?.value.trim().toLowerCase() || "";
     if (!value) return;
-    setOptions((prev) => [...new Set([...prev, value])]);
+    setFormOptions((prev) => [...new Set([...prev, value])]);
     optionRefInput.current!.value = "";
   };
 
@@ -93,8 +102,8 @@ const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
             </Label>
             <Input
               id="description"
-              value={desc}
-              onChange={(e) => setDesc(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               className="col-span-3"
             />
           </div>
@@ -102,7 +111,7 @@ const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
             <>
               <Label htmlFor="options" className="text-left">
                 Options:
-                {options.map((option) => (
+                {formOptions.map((option) => (
                   <Badge
                     key={option}
                     className="capitalize mx-1"
@@ -126,6 +135,16 @@ const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
               </div>
             </>
           )}
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="is-required" className="text-left">
+              Is Required
+            </Label>
+            <Checkbox
+              id="is-required"
+              onClick={() => setIsRequired((prev) => !prev)}
+              className="col-span-3 w-4"
+            />
+          </div>
         </div>
         <DialogFooter>
           <Button onClick={handleSubmit} type="submit">

@@ -16,7 +16,7 @@ export type FormJSON = {
   completedMessage: string;
   title: string;
   elements: FormElement[];
-  showQuestionNumbers: string;
+  showQuestionNumbers: boolean;
   questionTitleLocation: string;
   questionDescriptionLocation: string;
   questionErrorLocation: string;
@@ -42,8 +42,9 @@ export type SurveyContextType = {
   removeElement: (newElement: FormElement) => void;
 };
 
-export type ModalFormData = {
-  title: string;
-  description: string;
-  options?: OptionType[];
+export type ModalFormData = Pick<
+  FormElement,
+  "title" | "description" | "isRequired"
+> & {
+  options: OptionType[];
 };

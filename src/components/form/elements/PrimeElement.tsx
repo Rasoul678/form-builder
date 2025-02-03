@@ -16,13 +16,14 @@ type IProps = {
   element: FormElement;
   form: UseFormReturn<any>;
   model: SurveyModel;
+  index: number;
   handleValueChange: (name: string, value: any) => void;
 };
 
 export const PrimeContext = React.createContext<IProps | undefined>(undefined);
 
 const PrimeElement: React.FC<IProps> = (props) => {
-  const { element, form } = props;
+  const { element, form, model, index } = props;
   const context = useSurveyContext();
 
   const fragmentRef = React.useRef(false);
@@ -53,7 +54,10 @@ const PrimeElement: React.FC<IProps> = (props) => {
 
   return (
     <PrimeContext.Provider value={props}>
-      <div className="my-6 p-4 rounded-lg border border-gray-700">
+      <div className="my-6 py-4 px-6 rounded-lg border border-gray-700 relative">
+        {model.data?.showQuestionNumbers && (
+          <span className="absolute left-2">{index}.</span>
+        )}
         <FormField
           control={form.control}
           name={element.name}
