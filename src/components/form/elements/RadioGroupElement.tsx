@@ -6,26 +6,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import usePrimeElementContext from "@/hooks/usePrimeElementContext";
 import React from "react";
 import { ControllerRenderProps } from "react-hook-form";
-import { PrimeContext } from "./PrimeElement";
 
 type IProps = {
   field: ControllerRenderProps<any, string>;
 };
 
 const RadioGroupElement: React.FC<IProps> = ({ field }) => {
-  const ctx = React.useContext(PrimeContext);
-
-  if (!ctx) {
-    throw new Error("RadioGroupElement must be used within PrimeElement");
-  }
-
-  const { element, handleValueChange } = ctx;
+  const { element, handleValueChange } = usePrimeElementContext();
 
   return (
     <FormItem className="space-y-3">
-      <div className="mb-3">
+      <div className="mb-3 capitalize">
         <FormLabel className="text-base">{element.title}</FormLabel>
         <FormDescription>{element.description}</FormDescription>
       </div>

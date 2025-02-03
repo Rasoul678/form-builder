@@ -41,8 +41,8 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
     const newElement: FormElement = {
       type,
       name: type + "@" + Date.now(),
-      title: title || "Field Name",
-      description: description || "Field Description",
+      title: title || `${type} Field Name`,
+      description: description || `${type} Field Description`,
       isRequired,
       value: "",
       defaultValue: "",

@@ -1,4 +1,4 @@
-import { FormElement } from "@/types";
+import { FormElement, FormTypes } from "@/types";
 import { clsx, type ClassValue } from "clsx";
 import React, { ReactElement } from "react";
 import { twMerge } from "tailwind-merge";
@@ -25,7 +25,7 @@ export function generateFormSchema(elements: FormElement[]) {
     let schema: any;
 
     switch (element.type) {
-      case "text":
+      case FormTypes.TEXT:
         if (element.isRequired) {
           schema = z
             .string({
@@ -39,7 +39,7 @@ export function generateFormSchema(elements: FormElement[]) {
         }
 
         break;
-      case "radio":
+      case FormTypes.RADIO:
         if (element.isRequired) {
           schema = z.string({
             required_error: "Please select an item to display.",
@@ -48,7 +48,7 @@ export function generateFormSchema(elements: FormElement[]) {
           schema = z.string().optional();
         }
         break;
-      case "checkbox":
+      case FormTypes.CHECKBOX:
         if (element.isRequired) {
           schema = z
             .array(z.string())
@@ -59,13 +59,22 @@ export function generateFormSchema(elements: FormElement[]) {
           schema = z.array(z.string()).optional();
         }
         break;
-      case "select":
+      case FormTypes.SELECT:
         if (element.isRequired) {
           schema = z.string({
             required_error: "Please select an item to display.",
           });
         } else {
           schema = z.string().optional();
+        }
+        break;
+      case FormTypes.DATEPICKER:
+        if (element.isRequired) {
+          schema = z.date({
+            required_error: "A date is required.",
+          });
+        } else {
+          schema = z.date().optional();
         }
         break;
     }

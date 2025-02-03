@@ -6,26 +6,20 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import usePrimeElementContext from "@/hooks/usePrimeElementContext";
 import React from "react";
 import { ControllerRenderProps } from "react-hook-form";
-import { PrimeContext } from "./PrimeElement";
 
 type IProps = {
   field: ControllerRenderProps<any, string>;
 };
 
 const InputElement: React.FC<IProps> = ({ field }) => {
-  const ctx = React.useContext(PrimeContext);
-
-  if (!ctx) {
-    throw new Error("InputElement must be used within PrimeElement");
-  }
-
-  const { element, handleValueChange } = ctx;
+  const { element, handleValueChange } = usePrimeElementContext();
 
   return (
     <FormItem>
-      <FormLabel className="my-1">{element.title}</FormLabel>
+      <FormLabel className="my-1 capitalize">{element.title}</FormLabel>
       <FormControl>
         <Input
           placeholder="e.g: John Doe"
@@ -35,7 +29,9 @@ const InputElement: React.FC<IProps> = ({ field }) => {
           }}
         />
       </FormControl>
-      <FormDescription>{element.description}</FormDescription>
+      <FormDescription className="capitalize">
+        {element.description}
+      </FormDescription>
       <FormMessage />
     </FormItem>
   );

@@ -7,26 +7,20 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import usePrimeElementContext from "@/hooks/usePrimeElementContext";
 import React from "react";
 import { ControllerRenderProps } from "react-hook-form";
-import { PrimeContext } from "./PrimeElement";
 
 type IProps = {
   field: ControllerRenderProps<any, string>;
 };
 
 const CheckboxElement: React.FC<IProps> = () => {
-  const ctx = React.useContext(PrimeContext);
-
-  if (!ctx) {
-    throw new Error("CheckboxElement must be used within PrimeElement");
-  }
-
-  const { element, form, handleValueChange, model } = ctx;
+  const { element, form, handleValueChange, model } = usePrimeElementContext();
 
   return (
     <FormItem>
-      <div className="mb-4">
+      <div className="mb-4 capitalize">
         <FormLabel className="text-base">{element.title}</FormLabel>
         <FormDescription>{element.description}</FormDescription>
       </div>

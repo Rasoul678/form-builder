@@ -12,26 +12,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import usePrimeElementContext from "@/hooks/usePrimeElementContext";
 import React from "react";
 import { ControllerRenderProps } from "react-hook-form";
-import { PrimeContext } from "./PrimeElement";
 
 type IProps = {
   field: ControllerRenderProps<any, string>;
 };
 
 const SelectElement: React.FC<IProps> = ({ field }) => {
-  const ctx = React.useContext(PrimeContext);
-
-  if (!ctx) {
-    throw new Error("SelectElement must be used within PrimeElement");
-  }
-
-  const { element, handleValueChange } = ctx;
+  const { element, handleValueChange } = usePrimeElementContext();
 
   return (
     <FormItem>
-      <div className="mb-3">
+      <div className="mb-3 capitalize">
         <FormLabel>{element.title}</FormLabel>
         <FormDescription>{element.description}</FormDescription>
       </div>

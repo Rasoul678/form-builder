@@ -11,6 +11,7 @@ const CheckboxElement = React.lazy(() => import("./CheckboxElement"));
 const InputElement = React.lazy(() => import("./InputElement"));
 const RadioGroupElement = React.lazy(() => import("./RadioGroupElement"));
 const SelectElement = React.lazy(() => import("./SelectElement"));
+const CalendarElement = React.lazy(() => import("./CalendarElement"));
 
 type IProps = {
   element: FormElement;
@@ -47,6 +48,8 @@ const PrimeElement: React.FC<IProps> = (props) => {
         return <RadioGroupElement field={field} />;
       case FormTypes.SELECT:
         return <SelectElement field={field} />;
+      case FormTypes.DATEPICKER:
+        return <CalendarElement field={field} />;
       default:
         return <></>;
     }

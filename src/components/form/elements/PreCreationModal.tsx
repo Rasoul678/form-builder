@@ -25,6 +25,7 @@ type IProps = {
 const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
   const optionRefInput = React.useRef<HTMLInputElement | null>(null);
+
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [isRequired, setIsRequired] = React.useState(false);
