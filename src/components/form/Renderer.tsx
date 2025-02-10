@@ -76,7 +76,7 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
 
   return (
     <div
-      className="space-y-6 flex-1 border border-gray-800 py-4 px-12 rounded-lg"
+      className="space-y-6 flex-1 border border-gray-800 min-h-[calc(100vh-6rem)] py-4 px-12 rounded-lg"
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >

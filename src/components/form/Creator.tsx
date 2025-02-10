@@ -2,7 +2,6 @@ import { useSurveyContext } from "@/hooks/useSurveyContext";
 import React from "react";
 import { SurveyModel as Model } from "../../services/SurveyModel";
 import SurveyRenderer from "./Renderer";
-import Toolbox from "./Toolbox";
 
 type IProps = {};
 
@@ -19,12 +18,7 @@ const SurveyCreator: React.FC<IProps> = () => {
     console.log(args);
   });
 
-  return (
-    <main className="flex p-8 min-h-screen">
-      <SurveyRenderer model={surveyModel} />
-      <Toolbox />
-    </main>
-  );
+  return <SurveyRenderer model={surveyModel} />;
 };
 
 export default SurveyCreator;

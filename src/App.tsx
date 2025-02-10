@@ -2,19 +2,21 @@ import { FolderPlusIcon } from "lucide-react";
 import React from "react";
 import "./App.css";
 import SurveyCreator from "./components/form/Creator";
+import AppLayout from "./components/layout/AppLayout";
 import { Button } from "./components/ui/button";
 import { ScrollArea, ScrollBar } from "./components/ui/scroll-area";
 import { Separator } from "./components/ui/separator";
+import { SidebarTrigger } from "./components/ui/sidebar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./components/ui/tabs";
-import { SurveyProvider } from "./services/SurveyProvider";
 
 const App = () => {
   const [surveyList, setSurveyList] = React.useState<string[]>([]);
 
   return (
-    <SurveyProvider>
+    <AppLayout>
       <Tabs className="w-full p-1">
-        <TabsList className="flex w-full justify-start items-center">
+        <SidebarTrigger />
+        <TabsList className="flex justify-start items-center">
           <Button
             variant="outline"
             size="sm"
@@ -51,7 +53,7 @@ const App = () => {
           </TabsContent>
         ))}
       </Tabs>
-    </SurveyProvider>
+    </AppLayout>
   );
 };
 
