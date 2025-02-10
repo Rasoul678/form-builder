@@ -1,6 +1,5 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -12,6 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { FormTypes, ModalFormData } from "@/types";
 import { PlusCircleIcon } from "lucide-react";
 import React from "react";
@@ -26,7 +26,7 @@ const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
   const triggerRef = React.useRef<HTMLButtonElement | null>(null);
   const optionRefInput = React.useRef<HTMLInputElement | null>(null);
 
-  const [title, setTitle] = React.useState("");
+  const [title, setTitle] = React.useState(`${type} field title`);
   const [description, setDescription] = React.useState("");
   const [isRequired, setIsRequired] = React.useState(false);
   const [formOptions, setFormOptions] = React.useState<string[]>([]);
@@ -79,8 +79,8 @@ const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
         <Button variant="outline"></Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Create Field</DialogTitle>
+        <DialogHeader className="capitalize">
+          <DialogTitle>Field Type: {type}</DialogTitle>
           <DialogDescription>
             Make changes to your form field here
           </DialogDescription>
@@ -88,7 +88,7 @@ const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="title" className="text-left">
-              Title
+              Title:
             </Label>
             <Input
               id="title"
@@ -99,7 +99,7 @@ const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="description" className="text-left">
-              Description
+              Description:
             </Label>
             <Input
               id="description"
@@ -138,18 +138,19 @@ const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
           )}
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="is-required" className="text-left">
-              Is Required
+              Is Required:
             </Label>
-            <Checkbox
+            <Switch
               id="is-required"
-              onClick={() => setIsRequired((prev) => !prev)}
-              className="col-span-3 w-4"
+              aria-readonly
+              checked={isRequired}
+              onCheckedChange={(checked) => setIsRequired(checked)}
             />
           </div>
         </div>
         <DialogFooter>
-          <Button onClick={handleSubmit} type="submit">
-            Create
+          <Button onClick={handleSubmit} type="submit" className="w-full">
+            Create Field
           </Button>
         </DialogFooter>
       </DialogContent>
