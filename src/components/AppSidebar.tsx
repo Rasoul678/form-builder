@@ -15,6 +15,7 @@ import {
   CheckCircle2Icon,
   CheckSquare2,
   FormInputIcon,
+  SlidersHorizontalIcon,
   TextSelectionIcon,
   ToggleLeftIcon,
 } from "lucide-react";
@@ -35,6 +36,11 @@ const fieldTypes = [
     label: "Switch",
     icon: <ToggleLeftIcon />,
   },
+  {
+    type: FormTypes.SLIDER,
+    label: "Slider",
+    icon: <SlidersHorizontalIcon />,
+  },
 ];
 
 const AppSidebar = () => {
@@ -52,7 +58,7 @@ const AppSidebar = () => {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="text-[1rem]">
-            Form Toolbox
+            Form Components
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

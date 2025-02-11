@@ -83,6 +83,10 @@ export function generateFormSchema(elements: FormElement[]) {
           .boolean()
           .default(!!element.defaultValue as boolean)
           .optional();
+        break;
+      case FormTypes.SLIDER:
+        schema = z.array(z.number()).optional();
+        break;
     }
     return { ...acc, [element.name]: schema };
   }, {});

@@ -39,7 +39,9 @@ const CheckboxElement: React.FC<IProps> = () => {
               >
                 <FormControl>
                   <Checkbox
-                    checked={element.value?.includes(option.value)}
+                    checked={(element.value as Array<string>)?.includes(
+                      option.value
+                    )}
                     onCheckedChange={(checked) => {
                       if (values.includes(option.value)) {
                         values.splice(values.indexOf(option.value), 1);
@@ -49,7 +51,10 @@ const CheckboxElement: React.FC<IProps> = () => {
                       handleValueChange(element.name, values);
 
                       return checked
-                        ? field.onChange([...element.value, option.value])
+                        ? field.onChange([
+                            ...(element.value as string[]),
+                            option.value,
+                          ])
                         : field.onChange(
                             (element.value as string[])?.filter(
                               (value: string) => value !== option.value

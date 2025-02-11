@@ -51,13 +51,17 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
       newElement.options = options;
     }
 
-    if (type === FormTypes.CHECKBOX) {
+    if (type === FormTypes.CHECKBOX || type === FormTypes.SLIDER) {
       newElement.value = [];
       newElement.defaultValue = [];
     }
 
     if (type === FormTypes.SWITCH) {
       newElement.defaultValue = true;
+    }
+
+    if (type === FormTypes.SLIDER) {
+      newElement.defaultValue = [50];
     }
 
     context.addElementToSurvey(newElement, model.data?.id || "");

@@ -28,7 +28,10 @@ const CalendarElement: React.FC<IProps> = ({ field }) => {
 
   return (
     <FormItem className="flex flex-col">
-      <FormLabel className="my-[0.3rem] capitalize">{element.title}</FormLabel>
+      <div className="mb-4 capitalize">
+        <FormLabel className="my-1">{element.title}</FormLabel>
+        <FormDescription>{element.description}</FormDescription>
+      </div>
       <Popover>
         <PopoverTrigger asChild>
           <FormControl>
@@ -67,9 +70,6 @@ const CalendarElement: React.FC<IProps> = ({ field }) => {
           />
         </PopoverContent>
       </Popover>
-      <FormDescription className="capitalize">
-        {element.description}
-      </FormDescription>
       <FormMessage />
     </FormItem>
   );

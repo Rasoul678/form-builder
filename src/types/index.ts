@@ -5,6 +5,7 @@ export enum FormTypes {
   SELECT = "select",
   DATEPICKER = "datepicker",
   SWITCH = "switch",
+  SLIDER = "Slider",
 }
 
 export type OptionType = {
@@ -25,7 +26,7 @@ export type FormJSON = {
   completeText: string;
 };
 
-type FormValueType = string | string[] | boolean;
+type FormValueType = string | string[] | number[] | boolean;
 export type FormElement = {
   type: FormTypes;
   name: string;

@@ -13,6 +13,7 @@ const RadioGroupElement = React.lazy(() => import("./RadioGroupElement"));
 const SelectElement = React.lazy(() => import("./SelectElement"));
 const CalendarElement = React.lazy(() => import("./CalendarElement"));
 const SwitchElement = React.lazy(() => import("./SwitchElement"));
+const SliderElement = React.lazy(() => import("./SliderElement"));
 
 type IProps = {
   element: FormElement;
@@ -53,6 +54,8 @@ const PrimeElement: React.FC<IProps> = (props) => {
         return <CalendarElement field={field} />;
       case FormTypes.SWITCH:
         return <SwitchElement field={field} />;
+      case FormTypes.SLIDER:
+        return <SliderElement field={field} />;
       default:
         return <></>;
     }

@@ -5,7 +5,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider";
 import usePrimeElementContext from "@/hooks/usePrimeElementContext";
 import React from "react";
 import { ControllerRenderProps } from "react-hook-form";
@@ -14,7 +14,7 @@ type IProps = {
   field: ControllerRenderProps<any, string>;
 };
 
-const InputElement: React.FC<IProps> = ({ field }) => {
+const SliderElement: React.FC<IProps> = ({ field }) => {
   const { element, handleValueChange } = usePrimeElementContext();
 
   return (
@@ -24,18 +24,19 @@ const InputElement: React.FC<IProps> = ({ field }) => {
         <FormDescription>{element.description}</FormDescription>
       </div>
       <FormControl>
-        <Input
-          placeholder="e.g: John Doe"
-          onChange={(e) => {
-            field.onChange(e.target.value);
-            handleValueChange(element.name, e.target.value);
+        <Slider
+          defaultValue={(element.defaultValue as number[]) || [0]}
+          max={100}
+          step={1}
+          onValueChange={(value) => {
+            field.onChange(value);
+            handleValueChange(element.name, value);
           }}
         />
       </FormControl>
-
       <FormMessage />
     </FormItem>
   );
 };
 
-export default InputElement;
+export default SliderElement;
