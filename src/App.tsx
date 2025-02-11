@@ -21,7 +21,7 @@ const App = () => {
         <Button
           variant="outline"
           size="sm"
-          className="rounded-lg"
+          className="rounded-md"
           onClick={addSurvey}
         >
           <FolderPlusIcon />
@@ -51,6 +51,15 @@ const App = () => {
           <SurveyCreator json={survey} />
         </TabsContent>
       ))}
+      {surveyList.length === 0 && (
+        <div className="flex flex-col justify-center items-center h-[calc(100vh-10rem)]">
+          <h1 className="text-2xl font-bold">No surveys found</h1>
+          <p className="text-gray-500 flex gap-1">
+            Click the <FolderPlusIcon size={20} /> button above to create a new
+            survey
+          </p>
+        </div>
+      )}
     </Tabs>
   );
 };

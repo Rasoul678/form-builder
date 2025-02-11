@@ -95,6 +95,7 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
             onSave={(value) =>
               context.setSurveyTitle(value, model.data?.id || "")
             }
+            onDelete={() => context.removeSurvey(model.data?.id || "")}
           />
           {!context.isHover && model.elements.length == 0 && (
             <div className="h-[20rem] flex justify-center items-center">

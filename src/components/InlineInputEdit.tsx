@@ -1,14 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Edit3Icon } from "lucide-react";
+import { Edit3Icon, Trash2Icon } from "lucide-react";
 import React from "react";
 
 type IProps = {
   inputValue: string;
   onSave: (value: string) => void;
+  onDelete: VoidFunction;
 };
 
-const InlineInputEdit: React.FC<IProps> = ({ onSave, inputValue }) => {
+const InlineInputEdit: React.FC<IProps> = ({
+  onSave,
+  inputValue,
+  onDelete,
+}) => {
   const [isEditing, setIsEditing] = React.useState(false);
   const [value, setValue] = React.useState(inputValue);
   const currentValue = React.useRef(inputValue);
@@ -38,7 +43,12 @@ const InlineInputEdit: React.FC<IProps> = ({ onSave, inputValue }) => {
             className="flex-1"
             autoFocus
           />
-          <Button onClick={handleSave}>Save</Button>
+          <Button variant="secondary" onClick={handleSave}>
+            Save
+          </Button>
+          <Button variant="destructive" onClick={onDelete}>
+            <Trash2Icon />
+          </Button>
         </>
       ) : (
         <>

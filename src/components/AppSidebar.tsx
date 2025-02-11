@@ -56,7 +56,7 @@ const AppSidebar = () => {
                   className="px-2 py-1 w-[10rem] flex justify-start items-center hover:cursor-grab gap-2"
                 >
                   <SidebarMenuButton
-                    draggable
+                    draggable={!!context.surveyList.length}
                     onDragStart={handleDragStart(element.type)}
                     onDragEnd={() => context.setIsHover(false)}
                     asChild
