@@ -10,8 +10,6 @@ import Placeholder from "./elements/Placeholder";
 import PreCreationModal from "./elements/PreCreationModal";
 import PrimeElement from "./elements/PrimeElement";
 
-// TODO: Add inline fields editing
-
 type IProps = {
   model: SurveyModel;
 };
@@ -56,6 +54,10 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
     if (type === FormTypes.CHECKBOX) {
       newElement.value = [];
       newElement.defaultValue = [];
+    }
+
+    if (type === FormTypes.SWITCH) {
+      newElement.defaultValue = true;
     }
 
     context.addElementToSurvey(newElement, model.data?.id || "");

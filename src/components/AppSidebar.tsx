@@ -16,6 +16,7 @@ import {
   CheckSquare2,
   FormInputIcon,
   TextSelectionIcon,
+  ToggleLeftIcon,
 } from "lucide-react";
 import React from "react";
 
@@ -28,6 +29,11 @@ const fieldTypes = [
     type: FormTypes.DATEPICKER,
     label: "Datepicker",
     icon: <CalendarDaysIcon />,
+  },
+  {
+    type: FormTypes.SWITCH,
+    label: "Switch",
+    icon: <ToggleLeftIcon />,
   },
 ];
 

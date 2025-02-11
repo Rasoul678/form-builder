@@ -44,6 +44,8 @@ const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
     type === FormTypes.RADIO ||
     type === FormTypes.SELECT;
 
+  const isSwitch = type === FormTypes.SWITCH;
+
   const handleSubmit = () => {
     if (formOptions.length < 2 && isMultiOption) {
       alert("Please add at least 2 options");
@@ -136,17 +138,19 @@ const PreCreationModal: React.FC<IProps> = ({ onSubmit, onClose, type }) => {
               </div>
             </>
           )}
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="is-required" className="text-left">
-              Is Required:
-            </Label>
-            <Switch
-              id="is-required"
-              aria-readonly
-              checked={isRequired}
-              onCheckedChange={(checked) => setIsRequired(checked)}
-            />
-          </div>
+          {!isSwitch && (
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="is-required" className="text-left">
+                Is Required:
+              </Label>
+              <Switch
+                id="is-required"
+                aria-readonly
+                checked={isRequired}
+                onCheckedChange={(checked) => setIsRequired(checked)}
+              />
+            </div>
+          )}
         </div>
         <DialogFooter>
           <Button onClick={handleSubmit} type="submit" className="w-full">

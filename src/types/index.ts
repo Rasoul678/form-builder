@@ -4,6 +4,7 @@ export enum FormTypes {
   RADIO = "radio",
   SELECT = "select",
   DATEPICKER = "datepicker",
+  SWITCH = "switch",
 }
 
 export type OptionType = {
@@ -24,6 +25,7 @@ export type FormJSON = {
   completeText: string;
 };
 
+type FormValueType = string | string[] | boolean;
 export type FormElement = {
   type: FormTypes;
   name: string;
@@ -31,8 +33,8 @@ export type FormElement = {
   description: string;
   isRequired: boolean;
   options?: OptionType[];
-  value: string | string[];
-  defaultValue: string | string[];
+  value: FormValueType;
+  defaultValue: FormValueType;
 };
 
 export type SurveyContextType = {

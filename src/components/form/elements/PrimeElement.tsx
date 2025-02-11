@@ -12,6 +12,7 @@ const InputElement = React.lazy(() => import("./InputElement"));
 const RadioGroupElement = React.lazy(() => import("./RadioGroupElement"));
 const SelectElement = React.lazy(() => import("./SelectElement"));
 const CalendarElement = React.lazy(() => import("./CalendarElement"));
+const SwitchElement = React.lazy(() => import("./SwitchElement"));
 
 type IProps = {
   element: FormElement;
@@ -38,7 +39,6 @@ const PrimeElement: React.FC<IProps> = (props) => {
     }
   }, [fragmentRef.current]);
 
-  // TODO: add switch element
   const renderField = (field: ControllerRenderProps<any, string>) => {
     switch (props.element.type) {
       case FormTypes.TEXT:
@@ -51,6 +51,8 @@ const PrimeElement: React.FC<IProps> = (props) => {
         return <SelectElement field={field} />;
       case FormTypes.DATEPICKER:
         return <CalendarElement field={field} />;
+      case FormTypes.SWITCH:
+        return <SwitchElement field={field} />;
       default:
         return <></>;
     }

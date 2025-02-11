@@ -77,6 +77,12 @@ export function generateFormSchema(elements: FormElement[]) {
           schema = z.date().optional();
         }
         break;
+
+      case FormTypes.SWITCH:
+        schema = z
+          .boolean()
+          .default(!!element.defaultValue as boolean)
+          .optional();
     }
     return { ...acc, [element.name]: schema };
   }, {});
