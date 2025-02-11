@@ -43,6 +43,7 @@ export type SurveyContextType = {
   removeSurvey: (formID: string) => void;
   addElementToSurvey: (newElement: FormElement, formID: string) => void;
   removeElementFromSurvey: (newElement: FormElement, formID: string) => void;
+  setSurveyTitle: (title: string, formID: string) => void;
 };
 
 export type ModalFormData = Pick<

@@ -3,6 +3,7 @@ import { useSurveyForm } from "@/hooks/useSurveyForm";
 import { FormElement, FormTypes, ModalFormData } from "@/types";
 import React from "react";
 import { SurveyModel } from "../../services/SurveyModel";
+import InlineInputEdit from "../InlineInputEdit";
 import { Button } from "../ui/button";
 import { Form } from "../ui/form";
 import Placeholder from "./elements/Placeholder";
@@ -89,7 +90,12 @@ const FormRenderer: React.FC<IProps> = ({ model }) => {
       )}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <h1 className="text-center">{model.title}</h1>
+          <InlineInputEdit
+            inputValue={model.title}
+            onSave={(value) =>
+              context.setSurveyTitle(value, model.data?.id || "")
+            }
+          />
           {!context.isHover && model.elements.length == 0 && (
             <div className="h-[20rem] flex justify-center items-center">
               Drag & Drop here to create an awesome form!

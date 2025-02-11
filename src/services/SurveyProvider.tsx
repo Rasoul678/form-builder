@@ -13,10 +13,10 @@ const SurveyProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const addSurvey = () => {
     const newForm: FormJSON = {
-      id: `Form-${Date.now()}`,
+      id: `${Date.now()}`,
       description: "This is a sample Form Builder",
       completedMessage: "Thank you for your submission!",
-      title: "Simple Form Builder",
+      title: `F.N.${Date.now()}`,
       elements: [],
       showQuestionNumbers: true,
       questionTitleLocation: "left",
@@ -65,6 +65,21 @@ const SurveyProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
+  const setSurveyTitle = (title: string, formID: string) => {
+    setSurveyList((prevFormList) => {
+      const updatedForm = prevFormList.map((prevForm) => {
+        if (prevForm.id === formID) {
+          return {
+            ...prevForm,
+            title,
+          };
+        }
+        return prevForm;
+      });
+      return updatedForm;
+    });
+  };
+
   return (
     <SurveyContext.Provider
       value={{
@@ -73,6 +88,7 @@ const SurveyProvider: React.FC<{ children: React.ReactNode }> = ({
         setIsHover,
         addSurvey,
         removeSurvey,
+        setSurveyTitle,
         addElementToSurvey,
         removeElementFromSurvey,
       }}

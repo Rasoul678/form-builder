@@ -37,9 +37,9 @@ const App = () => {
                 autoFocus
                 key={survey.id}
                 value={survey.id}
-                className="hover:bg-gray-700 hover:text-white mx-[0.15rem]"
+                className="hover:bg-gray-700 hover:text-white mx-[0.15rem] capitalize"
               >
-                {survey.id}
+                {survey.title}
               </TabsTrigger>
             ))}
           </div>
