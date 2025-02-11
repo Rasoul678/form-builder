@@ -42,11 +42,11 @@ const AppSidebar = () => {
   );
 
   return (
-    <Sidebar>
+    <Sidebar variant="inset">
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel className="text-[1rem]">
-            Form Elements
+            Form Toolbox
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

@@ -12,6 +12,7 @@ export type OptionType = {
 };
 
 export type FormJSON = {
+  id: string;
   description: string;
   completedMessage: string;
   title: string;
@@ -35,11 +36,13 @@ export type FormElement = {
 };
 
 export type SurveyContextType = {
-  json: FormJSON;
+  surveyList: FormJSON[];
   isHover: boolean;
   setIsHover: (isHover: boolean) => void;
-  addElement: (newElement: FormElement) => void;
-  removeElement: (newElement: FormElement) => void;
+  addSurvey: VoidFunction;
+  removeSurvey: (formID: string) => void;
+  addElementToSurvey: (newElement: FormElement, formID: string) => void;
+  removeElementFromSurvey: (newElement: FormElement, formID: string) => void;
 };
 
 export type ModalFormData = Pick<

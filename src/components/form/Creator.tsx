@@ -1,24 +1,24 @@
-import { useSurveyContext } from "@/hooks/useSurveyContext";
+import { FormJSON } from "@/types";
 import React from "react";
 import { SurveyModel as Model } from "../../services/SurveyModel";
-import SurveyRenderer from "./Renderer";
+import Survey from "./Renderer";
 
-type IProps = {};
+type IProps = {
+  json: FormJSON;
+};
 
-const SurveyCreator: React.FC<IProps> = () => {
-  const { json } = useSurveyContext();
+const SurveyCreator: React.FC<IProps> = ({ json }) => {
+  const model = new Model(json);
 
-  const surveyModel = new Model(json);
-
-  surveyModel.onComplete.add((sender) => {
+  model.onComplete.add((sender) => {
     console.log(JSON.stringify(sender.data, null, 3));
   });
 
-  surveyModel.onValueChanged.add((_sender, args) => {
+  model.onValueChanged.add((_sender, args) => {
     console.log(args);
   });
 
-  return <SurveyRenderer model={surveyModel} />;
+  return <Survey model={model} />;
 };
 
 export default SurveyCreator;

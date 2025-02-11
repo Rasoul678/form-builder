@@ -8,44 +8,73 @@ const SurveyContext = React.createContext<SurveyContextType | undefined>(
 const SurveyProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [formConfig, setFormConfig] = React.useState<FormJSON>({
-    description: "This is a sample Form Builder",
-    completedMessage: "Thank you for your submission!",
-    title: "Simple Form Builder",
-    elements: [],
-    showQuestionNumbers: true,
-    questionTitleLocation: "left",
-    questionDescriptionLocation: "underInput",
-    questionErrorLocation: "bottom",
-    completeText: "SUBMIT",
-  });
-
+  const [surveyList, setSurveyList] = React.useState<FormJSON[]>([]);
   const [isHover, setIsHover] = React.useState(false);
 
-  const addElement = (newElement: FormElement) => {
-    setFormConfig((prevConfig) => ({
-      ...prevConfig,
-      elements: [...prevConfig.elements, newElement],
-    }));
+  const addSurvey = () => {
+    const newForm: FormJSON = {
+      id: `Form-${Date.now()}`,
+      description: "This is a sample Form Builder",
+      completedMessage: "Thank you for your submission!",
+      title: "Simple Form Builder",
+      elements: [],
+      showQuestionNumbers: true,
+      questionTitleLocation: "left",
+      questionDescriptionLocation: "underInput",
+      questionErrorLocation: "bottom",
+      completeText: "SUBMIT",
+    };
+    setSurveyList((prevFormList) => [...prevFormList, newForm]);
   };
 
-  const removeElement = (newElement: FormElement) => {
-    setFormConfig((prevConfig) => ({
-      ...prevConfig,
-      elements: prevConfig.elements.filter(
-        (prevElement) => prevElement.name !== newElement.name
-      ),
-    }));
+  const removeSurvey = (formID: string) => {
+    setSurveyList((prevFormList) =>
+      prevFormList.filter((prevForm) => prevForm.id !== formID)
+    );
+  };
+
+  const addElementToSurvey = (newElement: FormElement, formID: string) => {
+    setSurveyList((prevFormList) => {
+      const updatedForm = prevFormList.map((prevForm) => {
+        if (prevForm.id === formID) {
+          return {
+            ...prevForm,
+            elements: [...prevForm.elements, newElement],
+          };
+        }
+        return prevForm;
+      });
+      return updatedForm;
+    });
+  };
+
+  const removeElementFromSurvey = (newElement: FormElement, formID: string) => {
+    setSurveyList((prevFormList) => {
+      const updatedForm = prevFormList.map((prevForm) => {
+        if (prevForm.id === formID) {
+          return {
+            ...prevForm,
+            elements: prevForm.elements.filter(
+              (element) => element.name !== newElement.name
+            ),
+          };
+        }
+        return prevForm;
+      });
+      return updatedForm;
+    });
   };
 
   return (
     <SurveyContext.Provider
       value={{
-        json: formConfig,
+        surveyList,
         isHover,
         setIsHover,
-        addElement,
-        removeElement,
+        addSurvey,
+        removeSurvey,
+        addElementToSurvey,
+        removeElementFromSurvey,
       }}
     >
       {children}

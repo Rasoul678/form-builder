@@ -33,11 +33,12 @@ const PrimeElement: React.FC<IProps> = (props) => {
   //! Then remove the element from the list of elements.
   React.useLayoutEffect(() => {
     if (fragmentRef.current) {
-      context.removeElement(element);
+      context.removeElementFromSurvey(element, model.data?.id || "");
       console.error(element.type + " is not implemented yet!");
     }
   }, [fragmentRef.current]);
 
+  // TODO: add switch element
   const renderField = (field: ControllerRenderProps<any, string>) => {
     switch (props.element.type) {
       case FormTypes.TEXT:

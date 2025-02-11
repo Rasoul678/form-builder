@@ -1,6 +1,6 @@
 import { SurveyProvider } from "@/services/SurveyProvider";
 import AppSidebar from "../AppSidebar";
-import { SidebarProvider } from "../ui/sidebar";
+import { SidebarInset, SidebarProvider } from "../ui/sidebar";
 
 type IPorps = {
   children: React.ReactNode;
@@ -11,7 +11,9 @@ const AppLayout: React.FC<IPorps> = ({ children }) => {
     <SurveyProvider>
       <SidebarProvider>
         <AppSidebar />
-        <main className="w-full min-h-screen m-2">{children}</main>
+        <SidebarInset>
+          <main className="min-h-screen m-2">{children}</main>
+        </SidebarInset>
       </SidebarProvider>
     </SurveyProvider>
   );
